@@ -1,4 +1,4 @@
-#Assignment 3 - Hyper Parameter tuning
+<h1 "text-align:center">Assignment 3 - Hyper Parameter tuning</h1>
 
 Plotting Model performance for different values of Gamma Value
 
