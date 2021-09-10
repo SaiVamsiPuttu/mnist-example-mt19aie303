@@ -7,3 +7,8 @@ SVM algorithm is trained on MNIST data with an image size of 8*8 and with differ
 <br/>
 
 ![Screenshot 2021-09-10 223906](https://user-images.githubusercontent.com/67168573/132891680-9ae019b1-0808-4da6-b6b2-b653f7fa9361.png)
+
+
+<h1>Inference:</h1>
+
+From the data in the above table it is evident that model fails to perform well when 'gamma' parameter is increased
