@@ -10,5 +10,9 @@ Tasks performed:
 
 <br/>
 <br/>
+
+
 # End Result<br/>
-![lab_09_18](/images/lab_09_18.png)
+
+![lab_09_18](https://user-images.githubusercontent.com/67168573/134556284-24282898-8350-40b6-b5eb-f546c31cb712.png)
+
