@@ -1,3 +1,10 @@
 python
 matplotlib
 scikit-learn
+sys
+getopt
+pandas
+numpy
+skimage
+pickle
+os
