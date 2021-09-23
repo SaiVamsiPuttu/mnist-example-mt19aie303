@@ -11,4 +11,4 @@ Tasks performed:
 <br/>
 <br/>
 # End Result<br/>
-![lab_09_18](./images/lab_09_18.png)
+![lab_09_18](./mnist-example-mt19aie303/images/lab_09_18.png)
