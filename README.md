@@ -10,5 +10,5 @@ Tasks performed:
 
 <br/>
 <br/>
-#End Result<br/>
-![lab_09_18](https://user-images.githubusercontent.com/67168573/134555117-322a9270-de69-4be6-a76c-080a37ddf6b8.png)
+# End Result<br/>
+![lab_09_18](./iamges/lab_09_18.png)
