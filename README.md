@@ -26,5 +26,6 @@ def test_small_data_overfit_checking():
     
  # End result!
  
- [assignment6_output](https://user-images.githubusercontent.com/67168573/136434238-75e7c1ea-da7b-4377-a378-1ad6fc198745.png)
+![assignment6_output](https://user-images.githubusercontent.com/67168573/136434347-2af0af2c-bdd5-4a8e-a960-4ec53adf58b5.png)
+
  
