@@ -68,7 +68,6 @@ for ax, image, label in zip(axes, digits.images, digits.target):
 
 
 def main(argv):
-        #for gammaParam in [0.001,0.01,0.05,0.1,0.25,0.5,0.75,1,10,100]:
 
         digits = datasets.load_digits()
 
@@ -81,7 +80,7 @@ def main(argv):
         preProcessedData = utils.preProcess(8,digits)
         X_train,X_test,X_val,y_train,y_test,y_val = utils.create_splits(preProcessedData,digits,testSplitRatio,valSplitRatio)
         metricsDf = utils.training(X_train,X_val,y_train,y_val,gammaValues,savedModelFolderPath)
-
+        
         utils.testing(metricsDf,X_test,y_test,savedModelFolderPath)
  
 
