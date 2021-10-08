@@ -52,11 +52,11 @@ def preProcess(resizeParam,data):
         return processedData
 
 # Split data into 70% train and 30% test subsets
-def create_splits(data,digits,test_size,valid_size):
+def create_splits(data,digits,targets,test_size,valid_size):
 
-        X_train, X_test, y_train, y_test = train_test_split(data, digits.target, train_size=(1-(test_size+valid_size)), shuffle=False)
+        X_train, X_test, y_train, y_test = train_test_split(digits, targets, train_size=(1-(test_size+valid_size)), shuffle=False)
 
-        X_test, X_val, y_test, y_val = train_test_split(X_test, y_test, test_size=float(test_size/(test_size+valid_size)), shuffle=False)
+        X_test, X_val, y_test, y_val = train_test_split(X_test, y_test, train_size=round(float(test_size/(test_size+valid_size)),1), shuffle=False)
 
         return X_train,X_test,X_val,y_train,y_test,y_val
 
