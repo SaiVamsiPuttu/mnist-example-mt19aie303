@@ -61,16 +61,17 @@ def create_splits(data,digits,test_size,valid_size):
 
         return X_train,X_test,X_val,y_train,y_test,y_val
 
-def training(X_train,X_val,y_train,y_val,gammaValues,modelPath):
-
+def training(X_train,X_val,y_train,y_val,hyperParams,modelPath):
+        #print("hyperParams: ",hyperParams[0])
         metrics_table = np.array([[0.000,0,"Sample_Path"]])
         metrics_tableDT = np.array([[0.000,0,"Sample_Path"]])
 
-        for gammaParam in gammaValues:
+        for p in range(len(hyperParams[0])):
             i = 0
-            gammaParam = float(gammaParam)
-            clf = svm.SVC(gamma=gammaParam)
-            clfDT = tree.DecisionTreeClassifier(min_samples_leaf=i+1)
+            hyperParams[0][p] = float(hyperParams[0][p])
+            clf = svm.SVC(gamma=hyperParams[0][p])
+            hyperParams[1][p] = int(hyperParams[1][p])
+            clfDT = tree.DecisionTreeClassifier(min_samples_leaf=hyperParams[1][p])
 
 
             # Learn the digits on the train subset
@@ -83,19 +84,19 @@ def training(X_train,X_val,y_train,y_val,gammaValues,modelPath):
             val_acc = round(100*metrics.accuracy_score(y_val,predicted_val),2)
             val_acc_DT = round(100*metrics.accuracy_score(y_val,predicted_val_DT),2)
 
-            if val_acc > 0 or val_acc_DT > 0:
+            if val_acc > 10 or val_acc_DT > 10:
 
                     #save_path = "/tmp/MLOPS/mnist-example-mt19aie303/Models/"
                     save_path = modelPath
 
-                    name_of_file = save_path+"model_gamma_{0}_{1}".format(gammaParam,val_acc)
-                    name_of_fileDT = save_path+"DTmodel_gamma_{0}_{1}".format(gammaParam,val_acc_DT)
+                    name_of_file = save_path+"model_gamma_{0}_{1}".format(hyperParams[0][p],val_acc)
+                    name_of_fileDT = save_path+"DTmodel_gamma_{0}_{1}".format(hyperParams[1][p],val_acc_DT)
 
                     completeName = os.path.join(save_path, name_of_file+".pkl")
                     completeNameDT = os.path.join(save_path, name_of_fileDT+".pkl")
 
-                    metrics_table = np.insert(metrics_table,i,[gammaParam,val_acc,"model_gamma_{0}_{1}".format(gammaParam,val_acc)],axis=0)
-                    metrics_tableDT = np.insert(metrics_tableDT,i,[gammaParam,val_acc_DT,"DTmodel_gamma_{0}_{1}".format(gammaParam,val_acc_DT)],axis=0)       
+                    metrics_table = np.insert(metrics_table,i,[hyperParams[0][p],val_acc,"model_gamma_{0}_{1}".format(hyperParams[0][p],val_acc)],axis=0)
+                    metrics_tableDT = np.insert(metrics_tableDT,i,[hyperParams[1][p],val_acc_DT,"DTmodel_gamma_{0}_{1}".format(hyperParams[1][p],val_acc_DT)],axis=0)       
 
                     with open(completeName, 'wb') as f:
                             pickle.dump(clf, f)
@@ -105,8 +106,8 @@ def training(X_train,X_val,y_train,y_val,gammaValues,modelPath):
 
                     i += 1
         
-        metrics_table = pd.DataFrame(metrics_table,columns=['Gamma Value','Accuracy on Validation Data','Path to Model'])
-        metrics_tableDT = pd.DataFrame(metrics_tableDT,columns=['Gamma Value','Accuracy on Validation Data','Path to Model'])
+        metrics_table = pd.DataFrame(metrics_table,columns=['Param Value','Accuracy on Validation Data','Path to Model'])
+        metrics_tableDT = pd.DataFrame(metrics_tableDT,columns=['Param Value','Accuracy on Validation Data','Path to Model'])
 
         return metrics_table,metrics_tableDT
 
@@ -114,11 +115,13 @@ def training(X_train,X_val,y_train,y_val,gammaValues,modelPath):
 
 def testing(metrics_table,X_test,y_test,model_path):
 
-        
-        best_gamma_value = float(metrics_table[metrics_table['Accuracy on Validation Data'] == metrics_table['Accuracy on Validation Data'].max()]['Gamma Value'])
+        print("---------------- Performance Table ----------------------")
+        print(metrics_table)
+        print()
+        best_gamma_value = float(metrics_table[metrics_table['Accuracy on Validation Data'] == metrics_table['Accuracy on Validation Data'].max()]['Param Value'].values[0])
         print("Best performing gamma value is {0} ".format(best_gamma_value))
 
-        model_path = model_path + str(metrics_table[metrics_table['Accuracy on Validation Data'] == metrics_table['Accuracy on Validation Data'].max()]['Path to Model'][0])+'.pkl'
+        model_path = model_path + str(metrics_table[metrics_table['Accuracy on Validation Data'] == metrics_table['Accuracy on Validation Data'].max()]['Path to Model'].values[0])+'.pkl'
 
         with open(model_path,'rb') as f:
             model = pickle.load(f)
