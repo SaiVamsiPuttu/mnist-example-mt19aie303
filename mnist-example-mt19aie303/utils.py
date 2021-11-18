@@ -128,3 +128,11 @@ def testing(metrics_table,X_test,y_test,model_path):
 
         predicted_testSet = model.predict(X_test)
         print("Accuracy on test data with best gamma value is {0}".format(100*metrics.accuracy_score(y_test,predicted_testSet)))
+
+
+def load_model(model_path):
+        
+        with open(model_path,'rb') as f:
+            model = pickle.load(f)
+        
+        return model
