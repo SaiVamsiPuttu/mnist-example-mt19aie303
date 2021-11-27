@@ -67,26 +67,25 @@ for ax, image, label in zip(axes, digits.images, digits.target):
 
 
 def main(argv):
+        #for gammaParam in [0.001,0.01,0.05,0.1,0.25,0.5,0.75,1,10,100]:
 
         digits = datasets.load_digits()
 
         n = len(sys.argv[1])
-        m = len(sys.argv[2])
         gammaValues = sys.argv[1][1:n-1]
         gammaValues = gammaValues.split(',')
-        depthValues = sys.argv[2][1:m-1]
-        #print("depthValues: ",depthValues)
-        depthValues = depthValues.split(',')
-        testSplitRatio = float(sys.argv[3])
-        valSplitRatio = float(sys.argv[4])
-        savedModelFolderPath = sys.argv[5]
+        print("gammaValues: ",gammaValues)
+        testSplitRatio = float(sys.argv[2])
+        valSplitRatio = float(sys.argv[3])
+        hypPind = float(sys.argv[4])
+        #savedModelFolderPath = sys.argv[4]
         preProcessedData = utils.preProcess(8,digits)
-        hperParams = [gammaValues,depthValues]
         X_train,X_test,X_val,y_train,y_test,y_val = utils.create_splits(preProcessedData,digits,testSplitRatio,valSplitRatio)
-        metricsDf,metricsDf_DT = utils.training(X_train,X_val,y_train,y_val,hperParams,savedModelFolderPath)
-        
-        utils.testing(metricsDf,X_test,y_test,savedModelFolderPath)
-        utils.testing(metricsDf_DT,X_test,y_test,savedModelFolderPath)
+        #metricsDf = utils.training(X_train,X_val,y_train,y_val,gammaValues,savedModelFolderPath)
+        metricsDf = utils.training(X_train,X_val,X_test,y_train,y_val,y_test,gammaValues,hypPind)
+        metricsDf.to_excel("/home/mt19aie303/MLOPS/mnist-example-mt19aie303/mnist-example-mt19aie303/results.xlsx")
+        #utils.testing(metricsDf,X_test,y_test,savedModelFolderPath)
+        print(metricsDf)
  
 
 if __name__ == "__main__":
