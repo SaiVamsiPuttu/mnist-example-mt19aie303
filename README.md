@@ -17,10 +17,12 @@
 
 </br></br>
 
-# Input to model: python plot_digits_classification.py ["log2",5,0.175]
-0.15 0.15 3
+# Input to model: python plot_digits_classification.py ["log2",5,0.175] 0.15 0.15 3
 
 # output
 <img width="945" alt="run3" src="https://user-images.githubusercontent.com/67168573/143684248-97cdb623-3e5a-4853-8dc4-2d0c818384b0.png">
+
+# Final Table:
+<img width="896" alt="results_table" src="https://user-images.githubusercontent.com/67168573/143684645-46b25e72-c47c-4d90-a7ce-b7d133d81cb5.png">
 
 
