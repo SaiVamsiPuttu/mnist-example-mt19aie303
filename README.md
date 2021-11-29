@@ -9,6 +9,9 @@
 </br></br>
 ![resultplot](https://user-images.githubusercontent.com/67168573/143916413-aeb4c0bf-3edf-40ef-9e2e-29b0b97965d2.png)
 
+### Explanation
+As we can see f1 score is improving by increasing the percentage of training data. Macro f1 score is very good measure to find whether model is able to perform well all the class of the data. Hence increasing training data size is increasing model performance of unknown data.
+
 5. Make some observations about the chart and write.
 
 </br></br>
@@ -17,4 +20,7 @@
 
 # output obtained
 
-![CompPlot](https://user-images.githubusercontent.com/67168573/143916559-04bab05e-14dd-4ac5-87c8-1dc36afcced2.png)
+![CompPlot](https://user-images.githubusercontent.com/67168573/143916559-04bab05e-14dd-4ac5-87c8-1dc36afcced2.png)\
+
+### Explanation
+ROC score is very good metric on multi class equal class distributed datasets. The above plot indicates that increase in training size increasing the ROC score.
