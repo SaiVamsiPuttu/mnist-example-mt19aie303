@@ -67,25 +67,27 @@ for ax, image, label in zip(axes, digits.images, digits.target):
 
 
 def main(argv):
-        #for gammaParam in [0.001,0.01,0.05,0.1,0.25,0.5,0.75,1,10,100]:
-
         digits = datasets.load_digits()
-
-        n = len(sys.argv[1])
-        gammaValues = sys.argv[1][1:n-1]
-        gammaValues = gammaValues.split(',')
-        print("gammaValues: ",gammaValues)
-        testSplitRatio = float(sys.argv[2])
-        valSplitRatio = float(sys.argv[3])
-        hypPind = float(sys.argv[4])
-        #savedModelFolderPath = sys.argv[4]
+        testSplitRatio = float(sys.argv[1])
+        valSplitRatio = float(sys.argv[2])
         preProcessedData = utils.preProcess(8,digits)
         X_train,X_test,X_val,y_train,y_test,y_val = utils.create_splits(preProcessedData,digits,testSplitRatio,valSplitRatio)
-        #metricsDf = utils.training(X_train,X_val,y_train,y_val,gammaValues,savedModelFolderPath)
-        metricsDf = utils.training(X_train,X_val,X_test,y_train,y_val,y_test,gammaValues,hypPind)
-        metricsDf.to_excel("/home/mt19aie303/MLOPS/mnist-example-mt19aie303/mnist-example-mt19aie303/results.xlsx")
-        #utils.testing(metricsDf,X_test,y_test,savedModelFolderPath)
-        print(metricsDf)
+        trainDataPercnt,f1Score,roc_scores = utils.training(X_train,X_test,X_val,y_train,y_test,y_val)
+        rocScoresFinal = [0]
+        for pcnt in range(20,110,10):
+                rocScoresFinal.append(round((roc_scores[pcnt] - roc_scores[pcnt - 10]),2))
+        plt.figure()
+        plt.plot(trainDataPercnt,f1Score)
+        plt.xlabel("Percentage of Training set")
+        plt.ylabel("Macro f1 score on test set")
+        plt.title('Percentage of Training set vs Macro f1 score on test set')
+        plt.savefig('/home/mt19aie303/MLOPS/mnist-example-mt19aie303/mnist-example-mt19aie303/resultplot.png', dpi=300, bbox_inches='tight')
+        plt.figure()
+        plt.plot(trainDataPercnt,rocScoresFinal)
+        plt.xlabel("Percentage of Training set")
+        plt.ylabel("Difference in ROC score")
+        plt.title('Percentage of Training set vs Macro f1 score on test set')
+        plt.savefig('/home/mt19aie303/MLOPS/mnist-example-mt19aie303/mnist-example-mt19aie303/CompPlot.png', dpi=300, bbox_inches='tight')
  
 
 if __name__ == "__main__":
